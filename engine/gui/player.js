@@ -3,8 +3,9 @@ export default class Player {
         this.gameWidth = gameWidth, this.gameHeight = gameHeight;
 
         this.width = 200, this.height = 200;
-        this.x = 0, this.vx = 0, this.maxSpeed = 10;
-        this.y = this.gameHeight - this.height, this.vy = 0, this.weight = 1;
+        this.x = 0, this.vx = 0, this.maxSpeed = 5;
+        this.y = this.gameHeight - this.height, this.vy = 0, this.weight = 0;
+        this.accel = 1
 
         this.image = document.getElementById('player');
         this.frameX = 0, this.frameY = 0;
@@ -18,11 +19,13 @@ export default class Player {
     onGround() { return this.y >= this.gameHeight - this.height; }
 
     handle_event(input) {
-        if (input.includes('ArrowRight')) this.vx = this.maxSpeed;
-        else if (input.includes('ArrowLeft')) this.vx = -this.maxSpeed;
+        if (input.includes('ArrowRight') && this.vx < this.maxSpeed) this.vx += this.accel;
+        else if (input.includes('ArrowLeft')  && this.vx > -this.maxSpeed) this.vx -= this.accel;
         else this.vx = 0;
 
-        if (input.includes('ArrowUp') && this.onGround()) this.vy -= 30;
+        if (input.includes('ArrowUp') && this.vy > -this.maxSpeed) this.vy -= this.accel;
+        else if (input.includes('ArrowDown') && this.vy < this.maxSpeed) this.vy +=this.accel;
+        else this.vy = 0;
     }
 
     update(dt) {
