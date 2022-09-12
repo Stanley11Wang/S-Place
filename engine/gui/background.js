@@ -1,4 +1,4 @@
-export class Background {
+export default class Background {
     constructor(gameWidth, gameHeight) {
         this.gameWidth = gameWidth, this.gameHeight = gameHeight;
         this.image = document.getElementById('background')

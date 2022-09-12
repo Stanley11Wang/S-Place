@@ -1,4 +1,4 @@
-export class Enemy {
+export default class Enemy {
     constructor(gameWidth, gameHeight) {
         this.gameWidth = gameWidth, this.gameHeight = gameHeight;
         this.width = 160, this.height = 119;

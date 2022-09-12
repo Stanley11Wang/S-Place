@@ -1,10 +1,10 @@
-export class Player {
-    constructor (game) {
-        this.game = game;
+export default class Player {
+    constructor(gameWidth, gameHeight) {
+        this.gameWidth = gameWidth, this.gameHeight = gameHeight;
 
         this.width = 200, this.height = 200;
         this.x = 0, this.vx = 0, this.maxSpeed = 10;
-        this.y = this.game.height - this.height, this.vy = 0, this.weight = 1;
+        this.y = this.gameHeight - this.height, this.vy = 0, this.weight = 1;
 
         this.image = document.getElementById('player');
         this.frameX = 0, this.frameY = 0;
@@ -15,7 +15,7 @@ export class Player {
         this.frameInterval = 1000 / this.fps;
     }
 
-    onGround () { return this.y >= this.game.height - this.height; }
+    onGround() { return this.y >= this.gameHeight - this.height; }
 
     handle_event(input) {
         if (input.includes('ArrowRight')) this.vx = this.maxSpeed;
@@ -37,7 +37,7 @@ export class Player {
 
         this.x += this.vx;
         if (this.x < 0) this.x = 0;
-        if (this.x > this.game.width - this.width) this.x = this.game.width - this.width;
+        if (this.x > this.gameWidth - this.width) this.x = this.gameWidth - this.width;
 
         this.y += this.vy;
         if (!this.onGround()) {
@@ -49,7 +49,7 @@ export class Player {
             this.maxFrame = 8;
             this.frameY = 0;
         }
-        if (this.y > this.game.height - this.height) this.y = this.gameHeight - this.height;
+        if (this.y > this.gameHeight - this.height) this.y = this.gameHeight - this.height;
     }
 
     draw (context) {

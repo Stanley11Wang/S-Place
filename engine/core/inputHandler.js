@@ -1,4 +1,4 @@
-export class InputHandler {
+export default class InputHandler {
     /** Handles all keyboard inputs. */
 
     constructor() {
