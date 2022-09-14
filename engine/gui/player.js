@@ -1,3 +1,6 @@
+import DeltaTimeRunner from './utils/deltaTimeRunner.js'
+import Spritesheet from './utils/spritesheet.js'
+
 export default class Player {
     constructor(gameWidth, gameHeight) {
         this.gameWidth = gameWidth, this.gameHeight = gameHeight;
@@ -7,13 +10,8 @@ export default class Player {
         this.y = this.gameHeight - this.height, this.vy = 0, this.weight = 0;
         this.accel = 1
 
-        this.image = document.getElementById('player');
-        this.frameX = 0, this.frameY = 0;
-        this.maxFrame = 0;
-
-        this.fps = 20;
-        this.frameTimer = 0;
-        this.frameInterval = 1000 / this.fps;
+        this.dtRunner = new DeltaTimeRunner(20, 1000);
+        this.spritesheet = new Spritesheet('player', 200, 200, [9, 7]);
 
         this.states = [];
         this.currentState = this.states[0];
@@ -41,14 +39,7 @@ export default class Player {
     }
 
     update(dt) {
-        if (this.frameTimer > this.frameInterval) {
-            if (this.frameX >= this.maxFrame) this.frameX = 0;
-            else this.frameX++;
-            this.frameTimer = 0;
-        } else {
-            this.frameTimer += dt;
-        }
-        
+        this.dtRunner.deltaTimeUpdate(dt, this.spritesheet.nextFrameInRow);
 
         this.x += this.vx;
         if (this.x < 0) this.x = 0;
@@ -57,23 +48,15 @@ export default class Player {
         this.y += this.vy;
         if (!this.onGround()) {
             this.vy += this.weight;
-            this.maxFrame = 5;
-            this.frameY = 1;
+            this.spritesheet.setFrameY(1);
         } else {
-            this.vy = 0
-            this.maxFrame = 8;
-            this.frameY = 0;
+            this.vy = 0;
+            this.spritesheet.setFrameY(0);
         }
         if (this.y > this.gameHeight - this.height) this.y = this.gameHeight - this.height;
     }
 
     draw (context) {
-        context.strokeStyle = 'white';
-        context.strokeRect(this.x, this.y, this.width, this.height);
-        context.beginPath();
-        context.arc(this.x + this.width/2, this.y + this.height/2, this.width/2, 0, Math.PI * 2);
-        context.stroke();
-        context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, 
-            this.width, this.height, this.x, this.y, this.width, this.height);
+        this.spritesheet.draw(context, this.x, this.y);
     }
 }
