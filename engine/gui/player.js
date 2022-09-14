@@ -14,6 +14,18 @@ export default class Player {
         this.fps = 20;
         this.frameTimer = 0;
         this.frameInterval = 1000 / this.fps;
+
+        this.states = [];
+        this.currentState = this.states[0];
+    }
+
+    setState(state) {
+        this.currentState = this.states[state];
+        this.currentState.enter();
+    }
+
+    checkCollision() {
+        // need entity list here
     }
 
     onGround() { return this.y >= this.gameHeight - this.height; }
