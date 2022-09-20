@@ -9,6 +9,8 @@ export default class Movable2D {
     }
 
     getPos() { return [this.x, this.y]; }
+    setPos(x, y) { this.x = x, this.y = y; }
+
     onGround() { return this.y >= this.maxHeight - this.height; }
     pastLeftWall() { return this.x < 0; }
     pastRightWall() { return this.x > this.maxWidth - this.width; }

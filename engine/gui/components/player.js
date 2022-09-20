@@ -1,6 +1,6 @@
-import Movable2D from './utils/movable2D.js';
-import DeltaTimeRunner from './utils/deltaTimeRunner.js'
-import Spritesheet from './utils/spritesheet.js'
+import Movable2D from '../utils/movable2D.js';
+import DeltaTimeRunner from '../utils/deltaTimeRunner.js'
+import Spritesheet from '../utils/spritesheet.js'
 
 export default class Player {
     constructor(gameWidth, gameHeight) {

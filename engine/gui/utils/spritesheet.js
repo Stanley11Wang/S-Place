@@ -4,14 +4,16 @@ export default class Spritesheet {
      *  1) ROW MODE: if your animations each take up one row. 
      *  2) GRID MODE: if your animations don't follow the above format.*/
 
-    constructor(image_name, unit_width, unit_height, format) {
+    constructor(image_name, unitWidth, unitHeight, format) {
         this.image = document.getElementById(image_name);
-        this.unit_width = unit_width, this.unit_height = unit_height;
+        this.unitWidth = unitWidth, this.unitHeight = unitHeight;
         this.frameX = 0, this.frameY = 0, this.format = format;
 
         this.nextFrameInRow = this.nextFrameInRow.bind(this);
         this.nextFrame = this.nextFrame.bind(this);
     }
+
+    getUnitDimensions() { return [this.unitWidth, this.unitHeight]; }
 
     setFrameX(i) { this.frameX = i; }
     setFrameY(i) { this.frameY = i; }
@@ -33,7 +35,7 @@ export default class Spritesheet {
     }
 
     draw(context, x, y) {
-        context.drawImage(this.image, this.frameX * this.unit_width, this.frameY * this.unit_height, 
-            this.unit_width, this.unit_height, x, y, this.unit_width, this.unit_height);
+        context.drawImage(this.image, this.frameX * this.unitWidth, this.frameY * this.unitHeight, 
+            this.unitWidth, this.unitHeight, x, y, this.unitWidth, this.unitHeight);
     }
 }
