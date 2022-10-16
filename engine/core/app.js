@@ -17,7 +17,7 @@ export default class App {
         this.lastTime = timeStamp;
 
         this.context.clearRect(0, 0, this.width, this.height);
-        this.stateManager.passEvent(this.inputHandler.getKeys());
+        this.stateManager.passInputs(this.inputHandler.getInputs());
         this.stateManager.update(dt);
         this.stateManager.draw(this.context);
 

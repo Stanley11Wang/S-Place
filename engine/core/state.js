@@ -10,7 +10,7 @@ export default class State {
 
     cleanup() { throw new Error('Implement!'); }
 
-    handleEvent(event) { throw new Error('Implement!'); }
+    handleInputs(inputs) { throw new Error('Implement!'); }
 
     update(dt) { throw new Error('Implement!'); }
 

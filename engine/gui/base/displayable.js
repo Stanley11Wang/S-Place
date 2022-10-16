@@ -14,7 +14,7 @@ export default class Displayable {
         this.movable = new Movable2D(gameWidth, gameHeight, width, height);
     }
 
-    handle_event(input) {}
+    handleInputs(inputs) {}
 
     update(dt) {}
 

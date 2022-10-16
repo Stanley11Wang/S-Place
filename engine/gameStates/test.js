@@ -17,8 +17,8 @@ export default class Test extends State {
     startup() {}
     cleanup() {}
 
-    handleEvent(event) { 
-        this.player.handle_event(event);
+    handleInputs(inputs) { 
+        this.player.handleInputs(inputs);
     }
 
     update(dt) {

@@ -11,10 +11,10 @@ export default class Player {
         this.movable = new Movable2D(gameWidth, gameHeight, 200, 200);
     }
 
-    handle_event(input) {
-        if (input.includes('ArrowRight')) this.movable.incrementVelocityX(true);
-        else if (input.includes('ArrowLeft')) this.movable.incrementVelocityX(false);
-        if (input.includes('ArrowUp')) this.movable.jump();
+    handleInputs(inputs) {
+        if ('ArrowRight' in inputs) this.movable.incrementVelocityX(true);
+        else if ('ArrowLeft' in inputs) this.movable.incrementVelocityX(false);
+        if ('ArrowUp' in inputs) this.movable.jump();
     }
 
     update(dt) {
@@ -22,7 +22,7 @@ export default class Player {
         this.movable.update();
     }
 
-    draw (context) {
+    draw(context) {
         const [ x, y ] = this.movable.getPos();  
         this.spritesheet.draw(context, x, y);
     }

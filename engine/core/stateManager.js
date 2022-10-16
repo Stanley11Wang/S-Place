@@ -20,7 +20,7 @@ export default class StateManager {
         this.state.previous = previous;
     }
 
-    passEvent(event) { this.state.handleEvent(event); }
+    passInputs(inputs) { this.state.handleInputs(inputs); }
 
     update(dt) {
         if (this.state.quit) this.done = true;
