@@ -1,53 +1,49 @@
 export default class Movable2D {
     /** Supporting basic movement. Bounded by maxWidth and maxHeight. */
 
-    constructor(maxWidth, maxHeight, width, height) {
+    constructor(maxWidth, maxHeight, width, height, pos, velocity, acceleration, deceleration) {
         this.maxWidth = maxWidth, this.maxHeight = maxHeight;
         this.width = width, this.height = height;
-        this.x = 0, this.vx = 0, this.accelerationX = 2, this.decelerationX = 1, this.maxSpeedX = 100;
-        this.y = this.maxHeight - this.height, this.vy = 0, this.accelerationY = 2, this.decelerationY = 1, this.maxSpeedY = 100;
+        this.pos = pos, this.velocity = velocity;
+        this.acceleration = acceleration, this.deceleration = deceleration;
     }
 
-    getPos() { return [this.x, this.y]; }
-    setPos(x, y) { this.x = x, this.y = y; }
-
-    onGround() { return this.y >= this.maxHeight - this.height; }
-    pastLeftWall() { return this.x < 0; }
-    pastRightWall() { return this.x > this.maxWidth - this.width; }
-    pastGround() { return this.y > this.maxHeight - this.height; }
-
-    jump() { if (this.onGround()) this.vy = -20; }
-    fall() { if (!this.onGround()) this.vy += this.decelerationY; }
-
-    incrementVelocityX(right) {
-        if (right && this.vx < this.maxSpeedX) this.vx += this.accelerationX;
-        else if (!right && this.vx > -this.maxSpeedX) this.vx -= this.accelerationX;
+    pastLeftWall() { return this.pos[0] < 0; }
+    pastLeftWallComplete() { return this.pos[0] < -this.width; }
+    pastRightWall() { return this.pos[0] > this.maxWidth - this.width; }
+    onGround() { return this.pos[1] >= this.maxHeight - this.height; }
+    snapPos() {
+        if (this.pastLeftWall()) { this.pos[0] = 0; this.velocity[0] = 0; }
+        if (this.pastRightWall()) { this.pos[0] = this.maxWidth - this.width; this.velocity[0] = 0; }
+        if (this.onGround()) { this.pos[1] = this.maxHeight - this.height; this.velocity[1] = 0; }
     }
-    decrementVelocityX() {
-        if (this.vx < 0) this.vx += this.decelerationX;
-        if (this.vx > 0) this.vx -= this.decelerationX;
+ 
+    getPos() { return this.pos; }
+    setPos(pos) { this.pos = pos; }
+    incrementPos() { 
+        this.pos[0] += this.velocity[0];
+        this.pos[1] += this.velocity[1]; 
     }
 
-    incrementVelocityY(down) {
-        if (down && this.vy < this.maxSpeedY) this.vy += this.accelerationY;
-        else if (!down && this.vy > -this.maxSpeedY) this.vy -= this.accelerationY;
+    incrementVelocity(axis, dir) {
+        const dirX = (dir === 1 || dir === 4 ? 1 : -1) * (axis === 'x' || axis === 'both' ? 1 : 0);
+        const dirY = (dir === 3 || dir === 4 ? 1 : -1) * (axis === 'y' || axis === 'both' ? 1 : 0);
+        this.velocity[0] += this.acceleration[0] * dirX
+        this.velocity[1] += this.acceleration[1] * dirY;
     }
-    decrementVelocityY() {
-        if (this.vy < 0) this.vy += this.decelerationY;
-        if (this.vy > 0) this.vy -= this.decelerationY;
+    decrementVelocity(axis) {
+        const dirX = (this.velocity[0] < 0 ? 1 : -1) * ((axis === 'x' || axis === 'both') && this.velocity[0] !== 0 ? 1 : 0);
+        const dirY = (this.velocity[1] < 0 ? 1 : -1) * ((axis === 'y' || axis === 'both') && this.velocity[1] !== 0 ? 1 : 0);
+        this.velocity[0] += this.deceleration[0] * dirX;
+        this.velocity[1] += this.deceleration[1] * dirY;
     }
 
-    updateX() {
-        this.x += this.vx;
-        if (this.pastLeftWall()) this.x = 0;
-        if (this.pastRightWall()) this.x = this.maxWidth - this.width;
-        this.decrementVelocityX();
-    }
-    updateY() {
-        this.y += this.vy;
-        if (this.pastGround()) this.y = this.maxHeight - this.height;
+    jump() { if (this.onGround()) this.velocity[1] = -20; }
+    fall() { if (!this.onGround()) this.velocity[1] += this.deceleration[1]; }
+    updatePhysics() {
+        this.incrementPos();
+        this.snapPos();
+        this.decrementVelocity('x');
         this.fall();
     }
-
-    update() { this.updateX(); this.updateY(); }
 }

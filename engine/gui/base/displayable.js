@@ -1,4 +1,4 @@
-import SHEETS from '../utils/config.js'
+import sheets from '../utils/config.js'
 import DeltaTimeRunner from '../utils/deltaTimeRunner.js';
 import Movable2D from '../utils/movable2D.js';
 
@@ -7,7 +7,7 @@ export default class Displayable {
 
     constructor(gameWidth, gameHeight, spritesheetName) {
         this.gameWidth = gameWidth, this.gameHeight = gameHeight;
-        this.spritesheet = SHEETS[spritesheetName];
+        this.spritesheet = sheets[spritesheetName]();
         const [ width, height ] = this.spritesheet.getUnitDimensions();
 
         this.dtRunner = new DeltaTimeRunner(20, 1000);
