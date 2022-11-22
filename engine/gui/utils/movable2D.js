@@ -20,11 +20,14 @@ export default class Movable2D {
  
     getPos() { return this.pos; }
     setPos(pos) { this.pos = pos; }
+    setPosAxis(axis, i) { this.pos[(axis === 'x' ? 0 : 1)] = i; }
     incrementPos() { 
         this.pos[0] += this.velocity[0];
         this.pos[1] += this.velocity[1]; 
     }
 
+    getVelocity() { return this.velocity; }
+    setVelocity(velocity) { this.velocity = velocity; }
     incrementVelocity(axis, dir) {
         const dirX = (dir === 1 || dir === 4 ? 1 : -1) * (axis === 'x' || axis === 'both' ? 1 : 0);
         const dirY = (dir === 3 || dir === 4 ? 1 : -1) * (axis === 'y' || axis === 'both' ? 1 : 0);
