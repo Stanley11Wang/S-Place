@@ -1,25 +1,23 @@
-import Displayable from '../base/displayable.js';
-import Movable2D from '../utils/movable2D.js';
+import Displayable from './displayable.js';
+import MovableBG from '../movable/movableBG.js';
 
 export default class Background extends Displayable {
     /** An infinitely scrolling background. */
 
-    constructor(gameWidth, gameHeight) {
-        super(gameWidth, gameHeight, 'background');
+    constructor(gameWidth, gameHeight, spritesheetName, velocity) {
+        super(gameWidth, gameHeight, spritesheetName);
         const [ width, height ] = this.spritesheet.getUnitDimensions();
-        this.movable = new Movable2D(gameWidth, gameHeight, width, height, [0, 0], [-7, 0], [0, 0], [0, 0])
+        this.movable = new MovableBG(gameWidth, gameHeight, width, height, velocity)
+        this.movable.resetPos();
     }
 
     update() {
         this.movable.incrementPos();
-        if (this.movable.pastLeftWallComplete()) this.movable.setPosAxis('x', 0);
+        if (this.movable.outOfBoundsComplete()) this.movable.resetPos();
     }
 
     draw(context) {
-        const [ width, height ] = this.spritesheet.getUnitDimensions();
-        const [ vx, vy ] = this.movable.getVelocity();
-        const pos = this.movable.getPos();
-        this.spritesheet.draw(context, pos);
-        this.spritesheet.draw(context, [pos[0] + width + vx, pos[1]])
+        this.spritesheet.draw(context, this.movable.getPos());
+        this.spritesheet.draw(context, this.movable.getNextPos())
     }
 }

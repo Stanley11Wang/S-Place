@@ -1,6 +1,6 @@
-import Displayable from '../base/displayable.js';
+import Displayable from './displayable.js';
 import DeltaTimeRunner from '../utils/deltaTimeRunner.js';
-import Movable2D from '../utils/movable2D.js';
+import MovablePhysics from '../movable/movablePhysics.js';
 
 export default class Player extends Displayable {
     /** The player character. */
@@ -9,7 +9,7 @@ export default class Player extends Displayable {
         super(gameWidth, gameHeight, 'player');
         const [ width, height ] = this.spritesheet.getUnitDimensions();
         this.dtRunner = new DeltaTimeRunner(20, 1000);
-        this.movable = new Movable2D(gameWidth, gameHeight, width, height, [0, gameHeight - height], [0, 0], [2, 2], [1, 1]);
+        this.movable = new MovablePhysics(gameWidth, gameHeight, width, height, [0, gameHeight - height], [0, 0], [2, 2], [1, 1], -20);
     }
 
     handleInputs(inputs) {

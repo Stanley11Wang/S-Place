@@ -8,10 +8,10 @@ export default class Test extends State {
 
     constructor() {
         super();
-        const width = 500, height = 500;
+        const width = 1000, height = 500;
         this.player = new Player(width, height);
         this.enemy = new Enemy(width, height);
-        this.background = new Background(width, height);
+        this.background = new Background(width, height, 'background', [-7, 0]);
     }
 
     startup() {}

@@ -1,6 +1,6 @@
-import Displayable from '../base/displayable.js';
+import Displayable from './displayable.js';
 import DeltaTimeRunner from '../utils/deltaTimeRunner.js';
-import Movable2D from '../utils/movable2D.js';
+import Movable from '../movable/movable.js';
 
 export default class Enemy extends Displayable {
     /** The entities wishing upon your downfall. */
@@ -9,7 +9,7 @@ export default class Enemy extends Displayable {
         super(gameWidth, gameHeight, 'enemy');
         const [ width, height ] = this.spritesheet.getUnitDimensions();
         this.dtRunner = new DeltaTimeRunner(20, 1000);
-        this.movable = new Movable2D(gameWidth, gameHeight, width, height, [gameWidth, gameHeight - height], [-8, 0], [0, 0], [0, 0]);
+        this.movable = new Movable(gameWidth, gameHeight, width, height, [gameWidth, gameHeight - height], [-8, 0], [0, 0], [0, 0]);
     }
 
     update(dt) {

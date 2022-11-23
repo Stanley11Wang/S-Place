@@ -18,16 +18,18 @@ export default class Spritesheet {
     setFrameAxis(axis, i) { this.frame[(axis === 'x' ? 0 : 1)] = i; }
     setFrame(frame) { this.frame = frame; }
 
+    onLastFrameInRow() { return this.frame[0] >= this.format[this.frame[1]] - 1; }
     nextFrameInRow() {
         if (this.frame[0] >= this.format[this.frame[1]] - 1) this.frame[0] = 0;
         else this.frame[0]++;
     }
 
+    onLastFrame() { return this.frame[0] >= this.format[this.frame[1]] - 1 && this.frame[1] >= this.format.length - 1; }
     nextFrame() {
-        if (this.frame[0] >= this.format[this.frame[1]]) { 
+        if (this.frame[0] >= this.format[this.frame[1]] - 1) { 
             this.frame[0] = 0;
-            if (this.frame[1] >= this.format.length) this.frame[1] = 0;
-            else this.frame[0]++;
+            if (this.frame[1] >= this.format.length - 1) this.frame[1] = 0;
+            else this.frame[1]++;
         } else { 
             this.frame[0]++; 
         }
