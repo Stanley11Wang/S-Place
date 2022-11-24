@@ -1,7 +1,7 @@
-import Displayable from './displayable.js';
-import MovableBG from '../movable/movableBG.js';
+import GameObject from '../components/gameObject.js';
+import MovableBG from '../components/movable/movableBG.js';
 
-export default class Background extends Displayable {
+export default class Background extends GameObject {
     /** An infinitely scrolling background. */
 
     constructor(gameWidth, gameHeight, spritesheetName, velocity) {

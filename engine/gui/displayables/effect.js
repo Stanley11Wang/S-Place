@@ -1,7 +1,7 @@
-import Displayable from './displayable.js';
-import DeltaTimeRunner from '../utils/deltaTimeRunner.js';
+import GameObject from '../components/gameObject.js';
+import DeltaTimeRunner from '../components/deltaTimeRunner.js';
 
-export default class Effect extends Displayable {
+export default class Effect extends GameObject {
     /** A one-time pop-up which runs when instantiated. */
 
     constructor(pos, spritesheetName) {
