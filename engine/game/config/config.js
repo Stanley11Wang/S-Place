@@ -1,4 +1,4 @@
-import Spritesheet from './spritesheet.js';
+import Spritesheet from '../../gui/utils/spritesheet.js';
 
 export const sheets = {
     'enemy': () => new Spritesheet('enemy', 160, 120, [6]),

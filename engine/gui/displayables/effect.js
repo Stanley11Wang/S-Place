@@ -1,17 +1,17 @@
-import GameObject from '../base/gameObject.js';
-import DeltaTimeRunner from '../components/deltaTimeRunner.js';
+import GameObject from '../gameObject.js';
+import DeltaTimeRunner from '../utils/deltaTimeRunner.js';
 
 export default class Effect extends GameObject {
-    /** A one-time pop-up which runs when instantiated. */
+    /** A pop-up appearing at POS. Marks itself for deletion when it finishes its animation. */
 
-    constructor(pos, spritesheetName) {
-        super(0, 0, spritesheetName);
+    constructor(pos, spritesheet, onDelete) {
+        super(0, 0, spritesheet, onDelete);
         this.pos = pos;
         this.dtRunner = new DeltaTimeRunner(20, 1000);
     }
 
     update() {
-        if (this.spritesheet.onLastFrameInRow()) this.deleteFlag = true;
+        if (this.spritesheet.onLastFrameInRow()) this.setDelete();
         else this.dtRunner.deltaTimeUpdate(dt, this.spritesheet.nextFrameInRow); 
     }
 

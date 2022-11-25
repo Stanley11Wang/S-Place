@@ -1,12 +1,12 @@
-import GameObject from '../base/gameObject.js';
-import DeltaTimeRunner from '../components/deltaTimeRunner.js';
-import Movable from '../components/movable/movable.js';
+import GameObject from '../gameObject.js';
+import DeltaTimeRunner from '../utils/deltaTimeRunner.js';
+import Movable from '../utils/movable/movable.js';
 
 export default class Enemy extends GameObject {
     /** The entities wishing upon your downfall. */
 
-    constructor(gameWidth, gameHeight, spritesheetName) {
-        super(gameWidth, gameHeight, spritesheetName);
+    constructor(gameWidth, gameHeight, spritesheet, onDelete) {
+        super(gameWidth, gameHeight, spritesheet, onDelete);
         const [ width, height ] = this.spritesheet.getUnitDimensions();
         this.dtRunner = new DeltaTimeRunner(20, 1000);
         this.movable = new Movable(gameWidth, gameHeight, width, height, [gameWidth, gameHeight - height], [-8, 0], [0, 0], [0, 0]);

@@ -1,17 +1,18 @@
-import GameObject from '../base/gameObject.js';
-import MovableBG from '../components/movable/movableBG.js';
+import GameObject from '../gameObject.js';
+import MovableBG from '../utils/movable/movableBG.js';
 
 export default class Background extends GameObject {
-    /** An infinitely scrolling background. */
+    /** An infinitely scrolling background. Velocity is used to indicate a cardinal
+     *  direction of the moving background. */
 
-    constructor(gameWidth, gameHeight, spritesheetName, velocity) {
-        super(gameWidth, gameHeight, spritesheetName);
+    constructor(gameWidth, gameHeight, spritesheet, onDelete, velocity) {
+        super(gameWidth, gameHeight, spritesheet, onDelete);
         const [ width, height ] = this.spritesheet.getUnitDimensions();
         this.movable = new MovableBG(gameWidth, gameHeight, width, height, velocity)
         this.movable.resetPos();
     }
 
-    update() {
+    update(dt) {
         this.movable.incrementPos();
         if (this.movable.outOfBoundsComplete()) this.movable.resetPos();
     }
