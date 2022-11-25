@@ -40,8 +40,10 @@ export default class Movable {
     }
     decrementVelocity(axis) {
         const dirX = (this.velocity[0] < 0 ? 1 : -1) * ((axis === 'x' || axis === 'both') && this.velocity[0] !== 0 ? 1 : 0);
+        const snapX = this.velocity[0] < 0 ? Math.min : Math.max;
         const dirY = (this.velocity[1] < 0 ? 1 : -1) * ((axis === 'y' || axis === 'both') && this.velocity[1] !== 0 ? 1 : 0);
-        this.velocity[0] += this.deceleration[0] * dirX;
-        this.velocity[1] += this.deceleration[1] * dirY;
+        const snapY = this.velocity[1] < 0 ? Math.min : Math.max;
+        this.velocity[0] = snapX(0, this.velocity[0] + (this.deceleration[0] * dirX));
+        this.velocity[1] = snapY(0, this.velocity[1] + (this.deceleration[1] * dirY));
     }
 }

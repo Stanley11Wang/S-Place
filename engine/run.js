@@ -1,5 +1,5 @@
 import App from './core/app.js';
-import Test from './gameStates/test.js';
+import Test from './game/states/test.js';
 
 window.addEventListener('load', function() {
     const canvas = document.getElementById('canvas');

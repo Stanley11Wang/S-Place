@@ -1,7 +1,7 @@
-import State from '../core/state.js';
-import Player from '../gui/entities/player.js';
-import Enemy from '../gui/entities/enemy.js';
-import Background from '../gui/displayables/background.js';
+import State from '../../core/state.js';
+import Player from '../../gui/entities/player.js';
+import Enemy from '../../gui/entities/enemy.js';
+import Background from '../../gui/displayables/background.js';
 
 export default class Test extends State {
     /** A test state for testing displays and features. */
