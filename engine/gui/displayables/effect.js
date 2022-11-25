@@ -1,4 +1,4 @@
-import GameObject from '../components/gameObject.js';
+import GameObject from '../base/gameObject.js';
 import DeltaTimeRunner from '../components/deltaTimeRunner.js';
 
 export default class Effect extends GameObject {

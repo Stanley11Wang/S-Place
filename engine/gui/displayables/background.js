@@ -1,4 +1,4 @@
-import GameObject from '../components/gameObject.js';
+import GameObject from '../base/gameObject.js';
 import MovableBG from '../components/movable/movableBG.js';
 
 export default class Background extends GameObject {

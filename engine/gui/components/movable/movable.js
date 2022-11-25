@@ -9,6 +9,8 @@ export default class Movable {
         this.acceleration = acceleration, this.deceleration = deceleration;
     }
 
+    getDimensions() { return [this.width, this.height]; }
+
     pastLeftWall() { return this.pos[0] <= 0; }
     pastLeftWallComplete() { return this.pos[0] <= -this.width; }
     pastRightWall() { return this.pos[0] >= this.maxWidth - this.width; }

@@ -11,6 +11,7 @@ export default class GameObject {
         this.deleteFlag = false;
     }
 
+    setDelete() { this.deleteFlag = true; }
     canDelete() { return this.deleteFlag; }
 
     handleInputs(inputs) {}
